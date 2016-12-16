@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "康熙字",
+    "version": "1.0",
+    "description": "获取康熙字",
+    "icons": {
+        "16": "images/icon16.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "16": "images/icon16.png"
+        },
+        "default_title": "康熙字",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "*://tool.httpcn.com//*"
+    ]
+}

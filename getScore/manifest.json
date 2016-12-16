@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+    "name": "姓名测试评分",
+    "version": "1.0",
+    "description": "获取姓名评分",
+    "icons": {
+        "16": "images/icon16.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "19": "images/icon19.png",
+            "38": "images/icon38.png"
+        },
+        "default_title": "获取评分",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "*://ceming.yw11.com/*"
+    ]
+}
