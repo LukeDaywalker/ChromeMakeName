@@ -61,6 +61,29 @@ function continueLi() {
         handleLi();
     }
 }
+function doHandleLi(li, word, five) {
+    var start = li.indexOf('a href="');
+    var end = li.indexOf('" target="_blank"');
+    var url = "http://tool.httpcn.com" + li.substring(start + 8, end);
+    document.getElementById('ip_div').innerText = word + five + mStork;
+    httpRequest(url, function (htmlStr) {
+        if (!htmlStr) {
+            console.error(stroke + " handleLi1");
+            continueLi();
+            return;
+        }
+        var jiIndex = htmlStr.indexOf('吉凶寓意：');
+        if (jiIndex > 0) {
+            var ji = htmlStr.substring(jiIndex + 5, jiIndex + 6);
+            if (ji == "吉") {
+                save(word, five, mStork);
+                return;
+            }
+        }
+        continueLi();
+
+    });
+}
 function handleLi() {
     var li = mLi[mLiIndex];
     var start = li.indexOf('"sotab_zi_r"');
@@ -71,7 +94,7 @@ function handleLi() {
     var word = li.substring(start + 13, end);
 
     if (!dataBase) {
-        console.error(stroke + " handleLi");
+        console.error(mStork + " handleLi");
         console.error("数据库创建失败！");
     } else {
         dataBase.transaction(function (tx) {
@@ -82,33 +105,13 @@ function handleLi() {
                         continueLi();
                         return
                     }
-                    start = li.indexOf('a href="');
-                    end = li.indexOf('" target="_blank"');
-                    var url = "http://tool.httpcn.com" + li.substring(start + 8, end);
-                    document.getElementById('ip_div').innerText = word + five + mStork;
-                    httpRequest(url, function (htmlStr) {
-                        if (!htmlStr) {
-                            console.error(stroke + " handleLi1");
-                            continueLi();
-                            return;
-                        }
-                        var jiIndex = htmlStr.indexOf('吉凶寓意：');
-                        if (jiIndex > 0) {
-                            var ji = htmlStr.substring(jiIndex + 5, jiIndex + 6);
-                            if (ji == "吉") {
-                                save(word, five, mStork);
-                                return;
-                            }
-                        }
-                        continueLi();
-
-                    });
+                    doHandleLi(li, word, five);
 
                 },
                 function (tx, error) {
-                    console.error(stroke + " handleLi2");
+                    console.error(mStork + " handleLi2");
                     console.error('查询失败: ' + error.message);
-                    continueLi();
+                    doHandleLi(li, word, five);
                 });
         });
     }
