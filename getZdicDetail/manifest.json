@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "获取汉典字详情",
+    "version": "1.0",
+    "description": "获取汉典字详情",
+    "icons": {
+        "16": "images/icon16.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "16": "images/icon16.png"
+        },
+        "default_title": "获取汉字详情",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "*://www.zdic.net/*"
+    ]
+}
